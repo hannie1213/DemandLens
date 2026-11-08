@@ -1,0 +1,19 @@
+# DemandLens — Python dependencies
+#
+# Core web app
+streamlit
+plotly
+
+# Data & modeling
+pandas
+numpy
+scikit-learn
+joblib
+
+# Development / notebooks
+jupyter
+ipykernel
+pyarrow
+
+# Testing
+pytest

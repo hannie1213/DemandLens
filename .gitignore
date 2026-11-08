@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Raw data — large, not committed (see data/raw/README.md)
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/README.md
+
+# Processed data tables — commit only if small; large ones stay local
+data/processed/*.csv
+data/processed/*.parquet
+!data/processed/.gitkeep
+!data/processed/README.md
+
+# Trained models — joblib/pkl binaries can be large
+models/*.joblib
+models/*.pkl
+models/*.bin
+!models/README.md
+
+# OS
+.DS_Store
+Thumbs.db
