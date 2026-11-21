@@ -1,0 +1,212 @@
+paths:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+  reports_tables_dir: reports/tables
+events:
+  contract:
+  - view
+  - cart
+  - purchase
+aggregation:
+  chunksize: 1000000
+datasets:
+  multi_store:
+    kaggle_slug: mkechinov/ecommerce-behavior-data-from-multi-category-store
+    file_pattern: '{month}.csv'
+    months:
+    - 2019-Oct
+    - 2019-Nov
+    output: daily_all_categories.csv
+    role: primary
+  cosmetics:
+    kaggle_slug: mkechinov/ecommerce-events-history-in-cosmetics-shop
+    file_pattern: '{month}.csv'
+    months:
+    - 2019-Oct
+    - 2019-Nov
+    - 2019-Dec
+    - 2020-Jan
+    - 2020-Feb
+    - 2020-Apr
+    output: daily_all_categories_cosmetics.csv
+    role: external_validation_candidate
+seed: 42
+task:
+  lookback_days:
+  - 7
+  - 14
+  - 28
+  horizon_days: 7
+  step_days: 1
+calendar:
+  # Public holidays used by cal_target_holiday (deterministic, known ahead of
+  # the forecast origin). Malaysian (federal) public holidays within the data
+  # range; adjust to the dataset's region, or leave empty to disable the flag.
+  holidays:
+  - '2019-10-27'  # Deepavali
+  - '2019-11-09'  # Prophet Muhammad's Birthday (Maulidur Rasul)
+m3:
+  default_dataset: all
+  sources:
+    multi_store:
+      release_status: provisional_phase1_not_m1_frozen
+      development_start: '2019-10-01'
+      development_end: '2019-10-31'
+      development_sources:
+      - data/interim/daily_multi_store_2019-Oct.csv
+      calendar_start: '2019-10-01'
+      calendar_end: '2019-11-30'
+      candidate_counts:
+      - 10
+      - 20
+      final_count: null
+      strategy: development_activity_stratified_60_30_10
+      minimum_observed_coverage: 1.0
+      minimum_development_purchases: 7
+      selected_ids: []
+      gap_evidence: null
+      enabled: true
+      role: primary
+      quality_scope: primary_store
+      split:
+        owner: M3_proposal_M1_approval_required
+        date_meaning: input_end_date_prediction_origin
+        val_origin_start: '2019-10-31'
+        test_origin_start: '2019-11-14'
+        test_origin_end: '2019-11-21'
+        data_end: '2019-11-30'
+        horizon_days: 7
+        eval_step_days: 7
+        validation_grid: shared_weekly
+        status: provisional_phase1_only
+        dataset: multi_store
+        require_dataset_metadata: true
+      default_count: 10
+      variants:
+        '10':
+          selected_ids:
+          - '2053013555631882655'
+          - '2053013553559896355'
+          - '2053013554658804075'
+          - '2053013554415534427'
+          - '2053013563810775923'
+          - '2053013558920217191'
+          - '2053013566243472379'
+          - '2053013556110033341'
+          - '2053013555036291451'
+          - '2053013565362668491'
+          output: daily_category.csv
+        '20':
+          selected_ids:
+          - '2053013555631882655'
+          - '2053013553559896355'
+          - '2053013554658804075'
+          - '2053013554415534427'
+          - '2053013563810775923'
+          - '2053013558920217191'
+          - '2053013553341792533'
+          - '2053013565983425517'
+          - '2053013563651392361'
+          - '2053013553375346967'
+          - '2053013563911439225'
+          - '2053013563173241677'
+          - '2053013566243472379'
+          - '2053013556110033341'
+          - '2053013555036291451'
+          - '2053013553140465927'
+          - '2053013557343158789'
+          - '2053013553316626707'
+          - '2053013565362668491'
+          - '2116907504691576833'
+          output: daily_category_top20.csv
+    cosmetics:
+      enabled: true
+      enabled_by: explicit_user_request
+      role: external_dataset_preparation
+      release_status: proposed_source_specific_protocol
+      development_start: '2019-10-01'
+      development_end: '2019-11-30'
+      development_sources:
+      - data/interim/daily_cosmetics_2019-Oct.csv
+      - data/interim/daily_cosmetics_2019-Nov.csv
+      calendar_start: '2019-10-01'
+      calendar_end: '2020-02-29'
+      candidate_counts:
+      - 10
+      - 20
+      final_count: null
+      strategy: development_activity_stratified_60_30_10
+      minimum_observed_coverage: 1.0
+      minimum_development_purchases: 7
+      selected_ids: []
+      gap_evidence: null
+      split:
+        owner: M3_proposal_M1_approval_required
+        date_meaning: input_end_date_prediction_origin
+        val_origin_start: '2019-11-30'
+        test_origin_start: '2019-12-31'
+        test_origin_end: '2020-02-18'
+        data_end: '2020-02-29'
+        horizon_days: 7
+        eval_step_days: 7
+        validation_grid: shared_weekly
+        status: source_specific_proposal_not_model_evaluation
+        dataset: cosmetics
+        require_dataset_metadata: true
+      default_count: 10
+      variants:
+        '10':
+          selected_ids:
+          - '1487580007675986893'
+          - '1487580006317032337'
+          - '1487580005671109489'
+          - '1487580005092295511'
+          - '1487580005595612013'
+          - '1602943681873052386'
+          - '1525995662934540829'
+          - '1487580006132482952'
+          - '1487580007189447609'
+          - '1487580008984608779'
+          output: daily_category_cosmetics.csv
+        '20':
+          selected_ids:
+          - '1487580007675986893'
+          - '1487580006317032337'
+          - '1487580005671109489'
+          - '1487580005092295511'
+          - '1487580005595612013'
+          - '1602943681873052386'
+          - '1487580009286598681'
+          - '1487580005268456287'
+          - '1487580005134238553'
+          - '1487580009445982239'
+          - '1487580008145748965'
+          - '1487580005754995573'
+          - '1525995662934540829'
+          - '1487580006132482952'
+          - '1487580007189447609'
+          - '1487580010779770966'
+          - '1783999068867920626'
+          - '1487580011677352062'
+          - '1487580008984608779'
+          - '1487580009026551821'
+          output: daily_category_cosmetics_top20.csv
+  comparison_decision:
+    confirmed_by: M1
+    confirmed_via: user_message
+    recorded_at: '2026-11-20'
+    candidate_counts:
+    - 10
+    - 20
+    final_count: null
+    selection_basis: validation_results_not_final_test_results
+    scope: Compare both counts after models are available; no claim that dates or
+      thresholds have final approval
+approval:
+  frozen: false
+  approved_by: null
+  approved_at: null
+  version: null
+  missing: M1 confirmed comparison of 10 and 20; final category count and full protocol
+    freeze remain pending

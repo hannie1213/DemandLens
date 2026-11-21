@@ -1,0 +1,29 @@
+# Large raw and intermediate files are not committed (doc 7.1)
+data/raw/
+data/interim/
+*.csv.gz
+*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Trained models
+models/*.joblib
+models/*.pkl
+models/*.bin
+!models/README.md
+
+# OS
+.DS_Store
+Thumbs.db

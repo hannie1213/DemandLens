@@ -1,0 +1,2451 @@
+{
+  "release_status": "M3_preparation_not_final_model_evaluation",
+  "enabled_datasets": [
+    "multi_store",
+    "cosmetics"
+  ],
+  "approval": {
+    "frozen": false,
+    "approved_by": null,
+    "approved_at": null,
+    "version": null,
+    "missing": "M1 confirmed comparison of 10 and 20; final category count and full protocol freeze remain pending"
+  },
+  "comparison_decision": {
+    "confirmed_by": "M1",
+    "confirmed_via": "user_message",
+    "recorded_at": "2026-11-20",
+    "candidate_counts": [
+      10,
+      20
+    ],
+    "final_count": null,
+    "selection_basis": "validation_results_not_final_test_results",
+    "scope": "Compare both counts after models are available; no claim that dates or thresholds have final approval"
+  },
+  "datasets": {
+    "multi_store": {
+      "dataset": "multi_store",
+      "role": "primary",
+      "enabled": true,
+      "default_count": 10,
+      "final_count": null,
+      "input_sha256": "d7f87f6e5159ab10b953440d717d2a79c2f3bcb78263fb03772a140095802ce8",
+      "input_rows": 36555,
+      "calendar_start": "2019-10-01",
+      "calendar_end": "2019-11-30",
+      "development_start": "2019-10-01",
+      "development_end": "2019-10-31",
+      "category_strategy_comparison": [
+        {
+          "strategy": "purchase_rank",
+          "requested_count": 10,
+          "selected_count": 10,
+          "development_purchase_coverage_pct": 68.67963744987205
+        },
+        {
+          "strategy": "activity_stratified",
+          "requested_count": 10,
+          "selected_count": 10,
+          "development_purchase_coverage_pct": 62.823669413299335
+        },
+        {
+          "strategy": "purchase_rank",
+          "requested_count": 20,
+          "selected_count": 20,
+          "development_purchase_coverage_pct": 76.76109141965594
+        },
+        {
+          "strategy": "activity_stratified",
+          "requested_count": 20,
+          "selected_count": 20,
+          "development_purchase_coverage_pct": 71.00689372941203
+        }
+      ],
+      "split": {
+        "owner": "M3_proposal_M1_approval_required",
+        "date_meaning": "input_end_date_prediction_origin",
+        "val_origin_start": "2019-10-31",
+        "test_origin_start": "2019-11-14",
+        "test_origin_end": "2019-11-21",
+        "data_end": "2019-11-30",
+        "horizon_days": 7,
+        "eval_step_days": 7,
+        "validation_grid": "shared_weekly",
+        "status": "provisional_phase1_only",
+        "dataset": "multi_store",
+        "require_dataset_metadata": true
+      },
+      "raw_events_reprocessed": false,
+      "variants": {
+        "10": {
+          "candidate_count": 10,
+          "release_status": "complete_observed_candidate_not_final_selection",
+          "output_file": "data/processed/daily_category.csv",
+          "selected_ids": [
+            "2053013555631882655",
+            "2053013553559896355",
+            "2053013554658804075",
+            "2053013554415534427",
+            "2053013563810775923",
+            "2053013558920217191",
+            "2053013566243472379",
+            "2053013556110033341",
+            "2053013555036291451",
+            "2053013565362668491"
+          ],
+          "expected_calendar_rows": 610,
+          "observed_selected_rows": 610,
+          "unresolved_gaps": 0,
+          "filled_zero_rows": 0,
+          "unknown_days": {},
+          "split_feasibility": [
+            {
+              "lookback_days": 7,
+              "train_per_complete_category": 17,
+              "validation_per_complete_category": 1,
+              "test_per_complete_category": 2,
+              "usable_train_windows": 170,
+              "usable_validation_windows": 10,
+              "usable_test_windows": 20,
+              "excluded_windows": 280,
+              "per_category": [
+                {
+                  "category_id": "2053013555631882655",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553559896355",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013554658804075",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013554415534427",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563810775923",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013558920217191",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013566243472379",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013556110033341",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013555036291451",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013565362668491",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                }
+              ],
+              "status": "calendar_feasible_not_model_experiment"
+            },
+            {
+              "lookback_days": 14,
+              "train_per_complete_category": 10,
+              "validation_per_complete_category": 1,
+              "test_per_complete_category": 2,
+              "usable_train_windows": 100,
+              "usable_validation_windows": 10,
+              "usable_test_windows": 20,
+              "excluded_windows": 280,
+              "per_category": [
+                {
+                  "category_id": "2053013555631882655",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553559896355",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013554658804075",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013554415534427",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563810775923",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013558920217191",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013566243472379",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013556110033341",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013555036291451",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013565362668491",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                }
+              ],
+              "status": "calendar_feasible_not_model_experiment"
+            },
+            {
+              "lookback_days": 28,
+              "train_per_complete_category": 0,
+              "validation_per_complete_category": 1,
+              "test_per_complete_category": 2,
+              "usable_train_windows": 0,
+              "usable_validation_windows": 10,
+              "usable_test_windows": 20,
+              "excluded_windows": 240,
+              "per_category": [
+                {
+                  "category_id": "2053013555631882655",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013553559896355",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013554658804075",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013554415534427",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013563810775923",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013558920217191",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013566243472379",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013556110033341",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013555036291451",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013565362668491",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                }
+              ],
+              "status": "blocked_no_training_windows"
+            }
+          ],
+          "development_purchase_coverage_pct": 62.823669413299335
+        },
+        "20": {
+          "candidate_count": 20,
+          "release_status": "complete_observed_candidate_not_final_selection",
+          "output_file": "data/processed/daily_category_top20.csv",
+          "selected_ids": [
+            "2053013555631882655",
+            "2053013553559896355",
+            "2053013554658804075",
+            "2053013554415534427",
+            "2053013563810775923",
+            "2053013558920217191",
+            "2053013553341792533",
+            "2053013565983425517",
+            "2053013563651392361",
+            "2053013553375346967",
+            "2053013563911439225",
+            "2053013563173241677",
+            "2053013566243472379",
+            "2053013556110033341",
+            "2053013555036291451",
+            "2053013553140465927",
+            "2053013557343158789",
+            "2053013553316626707",
+            "2053013565362668491",
+            "2116907504691576833"
+          ],
+          "expected_calendar_rows": 1220,
+          "observed_selected_rows": 1220,
+          "unresolved_gaps": 0,
+          "filled_zero_rows": 0,
+          "unknown_days": {},
+          "split_feasibility": [
+            {
+              "lookback_days": 7,
+              "train_per_complete_category": 17,
+              "validation_per_complete_category": 1,
+              "test_per_complete_category": 2,
+              "usable_train_windows": 340,
+              "usable_validation_windows": 20,
+              "usable_test_windows": 40,
+              "excluded_windows": 560,
+              "per_category": [
+                {
+                  "category_id": "2053013555631882655",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553559896355",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013554658804075",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013554415534427",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563810775923",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013558920217191",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553341792533",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013565983425517",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563651392361",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553375346967",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563911439225",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563173241677",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013566243472379",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013556110033341",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013555036291451",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553140465927",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013557343158789",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553316626707",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013565362668491",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2116907504691576833",
+                  "train": 17,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                }
+              ],
+              "status": "calendar_feasible_not_model_experiment"
+            },
+            {
+              "lookback_days": 14,
+              "train_per_complete_category": 10,
+              "validation_per_complete_category": 1,
+              "test_per_complete_category": 2,
+              "usable_train_windows": 200,
+              "usable_validation_windows": 20,
+              "usable_test_windows": 40,
+              "excluded_windows": 560,
+              "per_category": [
+                {
+                  "category_id": "2053013555631882655",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553559896355",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013554658804075",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013554415534427",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563810775923",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013558920217191",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553341792533",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013565983425517",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563651392361",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553375346967",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563911439225",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013563173241677",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013566243472379",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013556110033341",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013555036291451",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553140465927",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013557343158789",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013553316626707",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2053013565362668491",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                },
+                {
+                  "category_id": "2116907504691576833",
+                  "train": 10,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 28
+                }
+              ],
+              "status": "calendar_feasible_not_model_experiment"
+            },
+            {
+              "lookback_days": 28,
+              "train_per_complete_category": 0,
+              "validation_per_complete_category": 1,
+              "test_per_complete_category": 2,
+              "usable_train_windows": 0,
+              "usable_validation_windows": 20,
+              "usable_test_windows": 40,
+              "excluded_windows": 480,
+              "per_category": [
+                {
+                  "category_id": "2053013555631882655",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013553559896355",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013554658804075",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013554415534427",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013563810775923",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013558920217191",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013553341792533",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013565983425517",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013563651392361",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013553375346967",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013563911439225",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013563173241677",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013566243472379",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013556110033341",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013555036291451",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013553140465927",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013557343158789",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013553316626707",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2053013565362668491",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                },
+                {
+                  "category_id": "2116907504691576833",
+                  "train": 0,
+                  "validation": 1,
+                  "test": 2,
+                  "excluded": 24
+                }
+              ],
+              "status": "blocked_no_training_windows"
+            }
+          ],
+          "development_purchase_coverage_pct": 71.00689372941203
+        }
+      },
+      "candidate_count": 10,
+      "release_status": "complete_observed_candidate_not_final_selection",
+      "output_file": "data/processed/daily_category.csv",
+      "selected_ids": [
+        "2053013555631882655",
+        "2053013553559896355",
+        "2053013554658804075",
+        "2053013554415534427",
+        "2053013563810775923",
+        "2053013558920217191",
+        "2053013566243472379",
+        "2053013556110033341",
+        "2053013555036291451",
+        "2053013565362668491"
+      ],
+      "expected_calendar_rows": 610,
+      "observed_selected_rows": 610,
+      "unresolved_gaps": 0,
+      "filled_zero_rows": 0,
+      "unknown_days": {},
+      "split_feasibility": [
+        {
+          "lookback_days": 7,
+          "train_per_complete_category": 17,
+          "validation_per_complete_category": 1,
+          "test_per_complete_category": 2,
+          "usable_train_windows": 170,
+          "usable_validation_windows": 10,
+          "usable_test_windows": 20,
+          "excluded_windows": 280,
+          "per_category": [
+            {
+              "category_id": "2053013555631882655",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013553559896355",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013554658804075",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013554415534427",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013563810775923",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013558920217191",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013566243472379",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013556110033341",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013555036291451",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013565362668491",
+              "train": 17,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            }
+          ],
+          "status": "calendar_feasible_not_model_experiment"
+        },
+        {
+          "lookback_days": 14,
+          "train_per_complete_category": 10,
+          "validation_per_complete_category": 1,
+          "test_per_complete_category": 2,
+          "usable_train_windows": 100,
+          "usable_validation_windows": 10,
+          "usable_test_windows": 20,
+          "excluded_windows": 280,
+          "per_category": [
+            {
+              "category_id": "2053013555631882655",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013553559896355",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013554658804075",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013554415534427",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013563810775923",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013558920217191",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013566243472379",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013556110033341",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013555036291451",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            },
+            {
+              "category_id": "2053013565362668491",
+              "train": 10,
+              "validation": 1,
+              "test": 2,
+              "excluded": 28
+            }
+          ],
+          "status": "calendar_feasible_not_model_experiment"
+        },
+        {
+          "lookback_days": 28,
+          "train_per_complete_category": 0,
+          "validation_per_complete_category": 1,
+          "test_per_complete_category": 2,
+          "usable_train_windows": 0,
+          "usable_validation_windows": 10,
+          "usable_test_windows": 20,
+          "excluded_windows": 240,
+          "per_category": [
+            {
+              "category_id": "2053013555631882655",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            },
+            {
+              "category_id": "2053013553559896355",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            },
+            {
+              "category_id": "2053013554658804075",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            },
+            {
+              "category_id": "2053013554415534427",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            },
+            {
+              "category_id": "2053013563810775923",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            },
+            {
+              "category_id": "2053013558920217191",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            },
+            {
+              "category_id": "2053013566243472379",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            },
+            {
+              "category_id": "2053013556110033341",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            },
+            {
+              "category_id": "2053013555036291451",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            },
+            {
+              "category_id": "2053013565362668491",
+              "train": 0,
+              "validation": 1,
+              "test": 2,
+              "excluded": 24
+            }
+          ],
+          "status": "blocked_no_training_windows"
+        }
+      ],
+      "development_purchase_coverage_pct": 62.823669413299335
+    },
+    "cosmetics": {
+      "dataset": "cosmetics",
+      "role": "external_dataset_preparation",
+      "enabled": true,
+      "default_count": 10,
+      "final_count": null,
+      "input_sha256": "e2efe1b0bcbd2e922ebf1c14fe8f569eab78f1eb73ef493e1fdd73a57bd89514",
+      "input_rows": 63546,
+      "calendar_start": "2019-10-01",
+      "calendar_end": "2020-02-29",
+      "development_start": "2019-10-01",
+      "development_end": "2019-11-30",
+      "category_strategy_comparison": [
+        {
+          "strategy": "purchase_rank",
+          "requested_count": 10,
+          "selected_count": 10,
+          "development_purchase_coverage_pct": 32.49131664791802
+        },
+        {
+          "strategy": "activity_stratified",
+          "requested_count": 10,
+          "selected_count": 10,
+          "development_purchase_coverage_pct": 24.366551006001327
+        },
+        {
+          "strategy": "purchase_rank",
+          "requested_count": 20,
+          "selected_count": 20,
+          "development_purchase_coverage_pct": 45.17930924000204
+        },
+        {
+          "strategy": "activity_stratified",
+          "requested_count": 20,
+          "selected_count": 20,
+          "development_purchase_coverage_pct": 36.65404433834882
+        }
+      ],
+      "split": {
+        "owner": "M3_proposal_M1_approval_required",
+        "date_meaning": "input_end_date_prediction_origin",
+        "val_origin_start": "2019-11-30",
+        "test_origin_start": "2019-12-31",
+        "test_origin_end": "2020-02-18",
+        "data_end": "2020-02-29",
+        "horizon_days": 7,
+        "eval_step_days": 7,
+        "validation_grid": "shared_weekly",
+        "status": "source_specific_proposal_not_model_evaluation",
+        "dataset": "cosmetics",
+        "require_dataset_metadata": true
+      },
+      "raw_events_reprocessed": false,
+      "variants": {
+        "10": {
+          "candidate_count": 10,
+          "release_status": "withheld_unresolved_gaps_no_daily_contract_output",
+          "output_file": null,
+          "selected_ids": [
+            "1487580007675986893",
+            "1487580006317032337",
+            "1487580005671109489",
+            "1487580005092295511",
+            "1487580005595612013",
+            "1602943681873052386",
+            "1525995662934540829",
+            "1487580006132482952",
+            "1487580007189447609",
+            "1487580008984608779"
+          ],
+          "expected_calendar_rows": 1520,
+          "observed_selected_rows": 1449,
+          "unresolved_gaps": 71,
+          "filled_zero_rows": 0,
+          "unknown_days": {
+            "1487580007189447609": [
+              "2019-12-01",
+              "2019-12-02",
+              "2019-12-03",
+              "2019-12-04",
+              "2019-12-05",
+              "2019-12-07",
+              "2019-12-09",
+              "2019-12-10",
+              "2019-12-11",
+              "2019-12-12",
+              "2019-12-13",
+              "2019-12-16",
+              "2019-12-17",
+              "2019-12-18",
+              "2019-12-19",
+              "2019-12-20",
+              "2019-12-21",
+              "2019-12-22",
+              "2019-12-24",
+              "2019-12-25",
+              "2019-12-26",
+              "2019-12-27",
+              "2019-12-28",
+              "2019-12-29",
+              "2019-12-30",
+              "2019-12-31",
+              "2020-01-01",
+              "2020-01-02",
+              "2020-01-04",
+              "2020-01-05",
+              "2020-01-06",
+              "2020-01-07",
+              "2020-01-09",
+              "2020-01-10",
+              "2020-01-11",
+              "2020-01-12",
+              "2020-01-13",
+              "2020-01-14",
+              "2020-01-16",
+              "2020-01-19",
+              "2020-01-20",
+              "2020-01-21",
+              "2020-01-22",
+              "2020-01-23",
+              "2020-01-24",
+              "2020-01-25",
+              "2020-01-26",
+              "2020-01-27",
+              "2020-01-31",
+              "2020-02-01",
+              "2020-02-03",
+              "2020-02-04",
+              "2020-02-05",
+              "2020-02-07",
+              "2020-02-09",
+              "2020-02-11",
+              "2020-02-12",
+              "2020-02-13",
+              "2020-02-16",
+              "2020-02-18",
+              "2020-02-19",
+              "2020-02-20",
+              "2020-02-21",
+              "2020-02-22",
+              "2020-02-23",
+              "2020-02-24",
+              "2020-02-25",
+              "2020-02-26",
+              "2020-02-27",
+              "2020-02-28",
+              "2020-02-29"
+            ]
+          },
+          "split_feasibility": [
+            {
+              "lookback_days": 7,
+              "train_per_complete_category": 47,
+              "validation_per_complete_category": 4,
+              "test_per_complete_category": 8,
+              "usable_train_windows": 470,
+              "usable_validation_windows": 36,
+              "usable_test_windows": 72,
+              "excluded_windows": 812,
+              "per_category": [
+                {
+                  "category_id": "1487580007675986893",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006317032337",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005671109489",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005092295511",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005595612013",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1602943681873052386",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1525995662934540829",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006132482952",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580007189447609",
+                  "train": 47,
+                  "validation": 0,
+                  "test": 0,
+                  "excluded": 92
+                },
+                {
+                  "category_id": "1487580008984608779",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                }
+              ],
+              "status": "source_gaps_excluded"
+            },
+            {
+              "lookback_days": 14,
+              "train_per_complete_category": 40,
+              "validation_per_complete_category": 4,
+              "test_per_complete_category": 8,
+              "usable_train_windows": 400,
+              "usable_validation_windows": 36,
+              "usable_test_windows": 72,
+              "excluded_windows": 812,
+              "per_category": [
+                {
+                  "category_id": "1487580007675986893",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006317032337",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005671109489",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005092295511",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005595612013",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1602943681873052386",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1525995662934540829",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006132482952",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580007189447609",
+                  "train": 40,
+                  "validation": 0,
+                  "test": 0,
+                  "excluded": 92
+                },
+                {
+                  "category_id": "1487580008984608779",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                }
+              ],
+              "status": "source_gaps_excluded"
+            },
+            {
+              "lookback_days": 28,
+              "train_per_complete_category": 26,
+              "validation_per_complete_category": 4,
+              "test_per_complete_category": 8,
+              "usable_train_windows": 260,
+              "usable_validation_windows": 36,
+              "usable_test_windows": 72,
+              "excluded_windows": 812,
+              "per_category": [
+                {
+                  "category_id": "1487580007675986893",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006317032337",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005671109489",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005092295511",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005595612013",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1602943681873052386",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1525995662934540829",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006132482952",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580007189447609",
+                  "train": 26,
+                  "validation": 0,
+                  "test": 0,
+                  "excluded": 92
+                },
+                {
+                  "category_id": "1487580008984608779",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                }
+              ],
+              "status": "source_gaps_excluded"
+            }
+          ],
+          "development_purchase_coverage_pct": 24.366551006001327
+        },
+        "20": {
+          "candidate_count": 20,
+          "release_status": "withheld_unresolved_gaps_no_daily_contract_output",
+          "output_file": null,
+          "selected_ids": [
+            "1487580007675986893",
+            "1487580006317032337",
+            "1487580005671109489",
+            "1487580005092295511",
+            "1487580005595612013",
+            "1602943681873052386",
+            "1487580009286598681",
+            "1487580005268456287",
+            "1487580005134238553",
+            "1487580009445982239",
+            "1487580008145748965",
+            "1487580005754995573",
+            "1525995662934540829",
+            "1487580006132482952",
+            "1487580007189447609",
+            "1487580010779770966",
+            "1783999068867920626",
+            "1487580011677352062",
+            "1487580008984608779",
+            "1487580009026551821"
+          ],
+          "expected_calendar_rows": 3040,
+          "observed_selected_rows": 2969,
+          "unresolved_gaps": 71,
+          "filled_zero_rows": 0,
+          "unknown_days": {
+            "1487580007189447609": [
+              "2019-12-01",
+              "2019-12-02",
+              "2019-12-03",
+              "2019-12-04",
+              "2019-12-05",
+              "2019-12-07",
+              "2019-12-09",
+              "2019-12-10",
+              "2019-12-11",
+              "2019-12-12",
+              "2019-12-13",
+              "2019-12-16",
+              "2019-12-17",
+              "2019-12-18",
+              "2019-12-19",
+              "2019-12-20",
+              "2019-12-21",
+              "2019-12-22",
+              "2019-12-24",
+              "2019-12-25",
+              "2019-12-26",
+              "2019-12-27",
+              "2019-12-28",
+              "2019-12-29",
+              "2019-12-30",
+              "2019-12-31",
+              "2020-01-01",
+              "2020-01-02",
+              "2020-01-04",
+              "2020-01-05",
+              "2020-01-06",
+              "2020-01-07",
+              "2020-01-09",
+              "2020-01-10",
+              "2020-01-11",
+              "2020-01-12",
+              "2020-01-13",
+              "2020-01-14",
+              "2020-01-16",
+              "2020-01-19",
+              "2020-01-20",
+              "2020-01-21",
+              "2020-01-22",
+              "2020-01-23",
+              "2020-01-24",
+              "2020-01-25",
+              "2020-01-26",
+              "2020-01-27",
+              "2020-01-31",
+              "2020-02-01",
+              "2020-02-03",
+              "2020-02-04",
+              "2020-02-05",
+              "2020-02-07",
+              "2020-02-09",
+              "2020-02-11",
+              "2020-02-12",
+              "2020-02-13",
+              "2020-02-16",
+              "2020-02-18",
+              "2020-02-19",
+              "2020-02-20",
+              "2020-02-21",
+              "2020-02-22",
+              "2020-02-23",
+              "2020-02-24",
+              "2020-02-25",
+              "2020-02-26",
+              "2020-02-27",
+              "2020-02-28",
+              "2020-02-29"
+            ]
+          },
+          "split_feasibility": [
+            {
+              "lookback_days": 7,
+              "train_per_complete_category": 47,
+              "validation_per_complete_category": 4,
+              "test_per_complete_category": 8,
+              "usable_train_windows": 940,
+              "usable_validation_windows": 76,
+              "usable_test_windows": 152,
+              "excluded_windows": 1612,
+              "per_category": [
+                {
+                  "category_id": "1487580007675986893",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006317032337",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005671109489",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005092295511",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005595612013",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1602943681873052386",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580009286598681",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005268456287",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005134238553",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580009445982239",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580008145748965",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005754995573",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1525995662934540829",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006132482952",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580007189447609",
+                  "train": 47,
+                  "validation": 0,
+                  "test": 0,
+                  "excluded": 92
+                },
+                {
+                  "category_id": "1487580010779770966",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1783999068867920626",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580011677352062",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580008984608779",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580009026551821",
+                  "train": 47,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                }
+              ],
+              "status": "source_gaps_excluded"
+            },
+            {
+              "lookback_days": 14,
+              "train_per_complete_category": 40,
+              "validation_per_complete_category": 4,
+              "test_per_complete_category": 8,
+              "usable_train_windows": 800,
+              "usable_validation_windows": 76,
+              "usable_test_windows": 152,
+              "excluded_windows": 1612,
+              "per_category": [
+                {
+                  "category_id": "1487580007675986893",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006317032337",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005671109489",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005092295511",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005595612013",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1602943681873052386",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580009286598681",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005268456287",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005134238553",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580009445982239",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580008145748965",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005754995573",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1525995662934540829",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006132482952",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580007189447609",
+                  "train": 40,
+                  "validation": 0,
+                  "test": 0,
+                  "excluded": 92
+                },
+                {
+                  "category_id": "1487580010779770966",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1783999068867920626",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580011677352062",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580008984608779",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580009026551821",
+                  "train": 40,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                }
+              ],
+              "status": "source_gaps_excluded"
+            },
+            {
+              "lookback_days": 28,
+              "train_per_complete_category": 26,
+              "validation_per_complete_category": 4,
+              "test_per_complete_category": 8,
+              "usable_train_windows": 520,
+              "usable_validation_windows": 76,
+              "usable_test_windows": 152,
+              "excluded_windows": 1612,
+              "per_category": [
+                {
+                  "category_id": "1487580007675986893",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006317032337",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005671109489",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005092295511",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005595612013",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1602943681873052386",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580009286598681",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005268456287",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005134238553",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580009445982239",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580008145748965",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580005754995573",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1525995662934540829",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580006132482952",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580007189447609",
+                  "train": 26,
+                  "validation": 0,
+                  "test": 0,
+                  "excluded": 92
+                },
+                {
+                  "category_id": "1487580010779770966",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1783999068867920626",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580011677352062",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580008984608779",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                },
+                {
+                  "category_id": "1487580009026551821",
+                  "train": 26,
+                  "validation": 4,
+                  "test": 8,
+                  "excluded": 80
+                }
+              ],
+              "status": "source_gaps_excluded"
+            }
+          ],
+          "development_purchase_coverage_pct": 36.65404433834882
+        }
+      },
+      "candidate_count": 10,
+      "release_status": "withheld_unresolved_gaps_no_daily_contract_output",
+      "output_file": null,
+      "selected_ids": [
+        "1487580007675986893",
+        "1487580006317032337",
+        "1487580005671109489",
+        "1487580005092295511",
+        "1487580005595612013",
+        "1602943681873052386",
+        "1525995662934540829",
+        "1487580006132482952",
+        "1487580007189447609",
+        "1487580008984608779"
+      ],
+      "expected_calendar_rows": 1520,
+      "observed_selected_rows": 1449,
+      "unresolved_gaps": 71,
+      "filled_zero_rows": 0,
+      "unknown_days": {
+        "1487580007189447609": [
+          "2019-12-01",
+          "2019-12-02",
+          "2019-12-03",
+          "2019-12-04",
+          "2019-12-05",
+          "2019-12-07",
+          "2019-12-09",
+          "2019-12-10",
+          "2019-12-11",
+          "2019-12-12",
+          "2019-12-13",
+          "2019-12-16",
+          "2019-12-17",
+          "2019-12-18",
+          "2019-12-19",
+          "2019-12-20",
+          "2019-12-21",
+          "2019-12-22",
+          "2019-12-24",
+          "2019-12-25",
+          "2019-12-26",
+          "2019-12-27",
+          "2019-12-28",
+          "2019-12-29",
+          "2019-12-30",
+          "2019-12-31",
+          "2020-01-01",
+          "2020-01-02",
+          "2020-01-04",
+          "2020-01-05",
+          "2020-01-06",
+          "2020-01-07",
+          "2020-01-09",
+          "2020-01-10",
+          "2020-01-11",
+          "2020-01-12",
+          "2020-01-13",
+          "2020-01-14",
+          "2020-01-16",
+          "2020-01-19",
+          "2020-01-20",
+          "2020-01-21",
+          "2020-01-22",
+          "2020-01-23",
+          "2020-01-24",
+          "2020-01-25",
+          "2020-01-26",
+          "2020-01-27",
+          "2020-01-31",
+          "2020-02-01",
+          "2020-02-03",
+          "2020-02-04",
+          "2020-02-05",
+          "2020-02-07",
+          "2020-02-09",
+          "2020-02-11",
+          "2020-02-12",
+          "2020-02-13",
+          "2020-02-16",
+          "2020-02-18",
+          "2020-02-19",
+          "2020-02-20",
+          "2020-02-21",
+          "2020-02-22",
+          "2020-02-23",
+          "2020-02-24",
+          "2020-02-25",
+          "2020-02-26",
+          "2020-02-27",
+          "2020-02-28",
+          "2020-02-29"
+        ]
+      },
+      "split_feasibility": [
+        {
+          "lookback_days": 7,
+          "train_per_complete_category": 47,
+          "validation_per_complete_category": 4,
+          "test_per_complete_category": 8,
+          "usable_train_windows": 470,
+          "usable_validation_windows": 36,
+          "usable_test_windows": 72,
+          "excluded_windows": 812,
+          "per_category": [
+            {
+              "category_id": "1487580007675986893",
+              "train": 47,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580006317032337",
+              "train": 47,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580005671109489",
+              "train": 47,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580005092295511",
+              "train": 47,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580005595612013",
+              "train": 47,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1602943681873052386",
+              "train": 47,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1525995662934540829",
+              "train": 47,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580006132482952",
+              "train": 47,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580007189447609",
+              "train": 47,
+              "validation": 0,
+              "test": 0,
+              "excluded": 92
+            },
+            {
+              "category_id": "1487580008984608779",
+              "train": 47,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            }
+          ],
+          "status": "source_gaps_excluded"
+        },
+        {
+          "lookback_days": 14,
+          "train_per_complete_category": 40,
+          "validation_per_complete_category": 4,
+          "test_per_complete_category": 8,
+          "usable_train_windows": 400,
+          "usable_validation_windows": 36,
+          "usable_test_windows": 72,
+          "excluded_windows": 812,
+          "per_category": [
+            {
+              "category_id": "1487580007675986893",
+              "train": 40,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580006317032337",
+              "train": 40,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580005671109489",
+              "train": 40,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580005092295511",
+              "train": 40,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580005595612013",
+              "train": 40,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1602943681873052386",
+              "train": 40,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1525995662934540829",
+              "train": 40,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580006132482952",
+              "train": 40,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580007189447609",
+              "train": 40,
+              "validation": 0,
+              "test": 0,
+              "excluded": 92
+            },
+            {
+              "category_id": "1487580008984608779",
+              "train": 40,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            }
+          ],
+          "status": "source_gaps_excluded"
+        },
+        {
+          "lookback_days": 28,
+          "train_per_complete_category": 26,
+          "validation_per_complete_category": 4,
+          "test_per_complete_category": 8,
+          "usable_train_windows": 260,
+          "usable_validation_windows": 36,
+          "usable_test_windows": 72,
+          "excluded_windows": 812,
+          "per_category": [
+            {
+              "category_id": "1487580007675986893",
+              "train": 26,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580006317032337",
+              "train": 26,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580005671109489",
+              "train": 26,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580005092295511",
+              "train": 26,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580005595612013",
+              "train": 26,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1602943681873052386",
+              "train": 26,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1525995662934540829",
+              "train": 26,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580006132482952",
+              "train": 26,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            },
+            {
+              "category_id": "1487580007189447609",
+              "train": 26,
+              "validation": 0,
+              "test": 0,
+              "excluded": 92
+            },
+            {
+              "category_id": "1487580008984608779",
+              "train": 26,
+              "validation": 4,
+              "test": 8,
+              "excluded": 80
+            }
+          ],
+          "status": "source_gaps_excluded"
+        }
+      ],
+      "development_purchase_coverage_pct": 24.366551006001327
+    }
+  },
+  "full_original_experiment_completed": false,
+  "limitations": [
+    "M1 protocol approval pending",
+    "Primary 28-day lookback remains infeasible under its current split",
+    "Cosmetics unknown category-days require M2 evidence or exclusion of every affected input/target window",
+    "External data preparation does not establish zero-shot cross-store model validity",
+    "Raw source completeness, true duplicates and licenses not independently verified",
+    "Actual M4 feature files and M5/M6 model results are outside M3 scope"
+  ]
+}
