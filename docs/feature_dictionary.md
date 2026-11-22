@@ -1,77 +1,77 @@
-# 特征字典（Feature Dictionary）— M4 特征工程
+# Feature Dictionary — M4 Feature Engineering
 
-> 逐项记录 `build_features` 生成的每个特征的名称、含义、计算公式与所用日期范围，作为防泄漏审计依据（配合 `tests/test_windows_leakage.py`）。
+> Records, item by item, the name, meaning, formula, and date range of every feature produced by `build_features`, as the basis for leakage auditing (paired with `tests/test_windows_leakage.py`).
 
-## 0. 记法与约定
+## 0. Notation and Conventions
 
-- **预测起点 t**：`input_end_date`（输入窗口最后一天）。
-- **输入窗口**：`[t - (L - 1), t]`，L = `task.lookback_days`（7 / 14 / 28）。
-- **目标窗口**：`[t + 1, t + H]`，H = `task.horizon_days`（固定 7）。
-- **目标 y**：目标窗口内该类别 `purchase` 事件总和（一个标量）：`y = Σ_{d=t+1}^{t+H} purchase_d`。
-- **严格时间隔离**：所有事件统计特征只对「预测起点及之前」的输入窗口求和，且一律裁剪到 `[input_start_date, input_end_date]`，绝不读取目标期或未来任何一天。日历特征只使用目标周「已知的日历信息」（星期 / 月份 / 是否跨月 / 公开节假日），不读取任何未来事件数据。
-- **短窗口安全**：当 `L = 7` 时没有完整的「前 7 天」（`[t-13, t-7]` 全部早于 `input_start`），`*_prev7_total` 全为 0（真实的「无前 7 天计数」）；由此派生的 `*_trend` 与 `purchase_wow_ratio` 按下方「分母为零兜底」规则取中性值，**不会退化成原始总量**。
-- **分母为零兜底**：比例 / 趋势特征的分母若为 0，按中性值兜底（避免除零、`inf` 与量级失真的原始值）——
-  - 趋势类（`purchase_trend` / `views_trend` / `cart_trend`）→ `0.0`（表示「无变化」）；
-  - 周环比（`purchase_wow_ratio`）→ `1.0`（表示「与上周持平」）；
-  - 转化比（`cart_view_ratio` / `purchase_cart_ratio`）→ `0.0`（表示「无转化」）。
-  以上均为「事件计数之比」，非独立用户转化率。
+- **Prediction origin t**: `input_end_date` (the last day of the input window).
+- **Input window**: `[t - (L - 1), t]`, L = `task.lookback_days` (7 / 14 / 28).
+- **Target window**: `[t + 1, t + H]`, H = `task.horizon_days` (fixed 7).
+- **Target y**: the total `purchase` events of this category over the target window (one scalar): `y = Σ_{d=t+1}^{t+H} purchase_d`.
+- **Strict time isolation**: every event-statistic feature sums only over the input window "up to and including the prediction origin", and is always clipped to `[input_start_date, input_end_date]`; it never reads the target period or any future day. Calendar features use only the target week's "known calendar information" (weekday / month / cross-month / public holidays) and read no future event data.
+- **Short-window safety**: when `L = 7` there is no complete "previous 7 days" (`[t-13, t-7]` is entirely before `input_start`), so all `*_prev7_total` are 0 (a true "no previous-7-day count"); the derived `*_trend` and `purchase_wow_ratio` take neutral values under the "denominator-zero fallback" below and **do not degrade into the raw total**.
+- **Denominator-zero fallback**: if the denominator of a ratio/trend feature is 0, fall back to a neutral value (avoids division-by-zero, `inf`, and scale-distorting raw values) —
+  - trend features (`purchase_trend` / `views_trend` / `cart_trend`) → `0.0` (meaning "no change");
+  - week-over-week (`purchase_wow_ratio`) → `1.0` (meaning "flat vs last week");
+  - conversion ratios (`cart_view_ratio` / `purchase_cart_ratio`) → `0.0` (meaning "no conversion").
+  All of the above are "event-count ratios", not unique-user conversion rates.
 
-## 1. 购买特征（始终生成）
+## 1. Purchase Features (always generated)
 
-| 特征名 | 含义 | 公式 | 所用日期范围 |
+| Feature | Meaning | Formula | Date range used |
 | --- | --- | --- | --- |
-| `purchase_last7_total` | 最近 7 天购买总量 | Σ purchase | `[t-6, t]`（裁剪到输入窗口） |
-| `purchase_prev7_total` | 前 7 天购买总量 | Σ purchase | `[t-13, t-7]`（裁剪到输入窗口；L=7 时为 0） |
-| `purchase_last14_total` | 最近 14 天购买总量 | Σ purchase | `[t-13, t]`（裁剪到输入窗口） |
-| `purchase_last7_avg` | 最近 7 天购买日均 | last7_total / 7 | `[t-6, t]` |
-| `purchase_trend` | 购买近期趋势（周环比变化率） | (last7_total − prev7_total) / prev7_total；prev7_total=0 时取 0.0 | 用到 `[t-13, t]` |
+| `purchase_last7_total` | Total purchases over the last 7 days | Σ purchase | `[t-6, t]` (clipped to the input window) |
+| `purchase_prev7_total` | Total purchases over the previous 7 days | Σ purchase | `[t-13, t-7]` (clipped to the input window; 0 when L=7) |
+| `purchase_last14_total` | Total purchases over the last 14 days | Σ purchase | `[t-13, t]` (clipped to the input window) |
+| `purchase_last7_avg` | Daily average purchases over the last 7 days | last7_total / 7 | `[t-6, t]` |
+| `purchase_trend` | Recent purchase trend (week-over-week change rate) | (last7_total − prev7_total) / prev7_total; 0.0 when prev7_total=0 | uses `[t-13, t]` |
 
-## 2. 浏览与加购特征（`use_behavior=True` 时生成）
+## 2. Views & Cart Features (generated when `use_behavior=True`)
 
-| 特征名 | 含义 | 公式 | 所用日期范围 |
+| Feature | Meaning | Formula | Date range used |
 | --- | --- | --- | --- |
-| `views_last7_total` | 最近 7 天浏览总量 | Σ views | `[t-6, t]` |
-| `views_prev7_total` | 前 7 天浏览总量 | Σ views | `[t-13, t-7]`（L=7 时为 0） |
-| `views_trend` | 浏览趋势 | (views_last7 − views_prev7) / views_prev7；views_prev7=0 时取 0.0 | `[t-13, t]` |
-| `cart_last7_total` | 最近 7 天加购总量 | Σ cart | `[t-6, t]` |
-| `cart_prev7_total` | 前 7 天加购总量 | Σ cart | `[t-13, t-7]`（L=7 时为 0） |
-| `cart_trend` | 加购趋势 | (cart_last7 − cart_prev7) / cart_prev7；cart_prev7=0 时取 0.0 | `[t-13, t]` |
+| `views_last7_total` | Total views over the last 7 days | Σ views | `[t-6, t]` |
+| `views_prev7_total` | Total views over the previous 7 days | Σ views | `[t-13, t-7]` (0 when L=7) |
+| `views_trend` | Views trend | (views_last7 − views_prev7) / views_prev7; 0.0 when views_prev7=0 | `[t-13, t]` |
+| `cart_last7_total` | Total cart-adds over the last 7 days | Σ cart | `[t-6, t]` |
+| `cart_prev7_total` | Total cart-adds over the previous 7 days | Σ cart | `[t-13, t-7]` (0 when L=7) |
+| `cart_trend` | Cart-adds trend | (cart_last7 − cart_prev7) / cart_prev7; 0.0 when cart_prev7=0 | `[t-13, t]` |
 
-## 3. 比例特征（`use_behavior=True` 时生成）
+## 3. Ratio Features (generated when `use_behavior=True`)
 
-| 特征名 | 含义 | 公式 | 所用日期范围 |
+| Feature | Meaning | Formula | Date range used |
 | --- | --- | --- | --- |
-| `cart_view_ratio` | 加购 / 浏览（事件计数比） | cart_last7 / views_last7；views_last7=0 时取 0.0 | `[t-6, t]` |
-| `purchase_cart_ratio` | 购买 / 加购（事件计数比） | purchase_last7 / cart_last7；cart_last7=0 时取 0.0 | `[t-6, t]` |
-| `purchase_wow_ratio` | 最近一周购买 / 前一周购买 | purchase_last7 / purchase_prev7；purchase_prev7=0 时取 1.0 | `[t-13, t]` |
+| `cart_view_ratio` | Cart / views (event-count ratio) | cart_last7 / views_last7; 0.0 when views_last7=0 | `[t-6, t]` |
+| `purchase_cart_ratio` | Purchase / cart (event-count ratio) | purchase_last7 / cart_last7; 0.0 when cart_last7=0 | `[t-6, t]` |
+| `purchase_wow_ratio` | Last-week purchases / previous-week purchases | purchase_last7 / purchase_prev7; 1.0 when purchase_prev7=0 | `[t-13, t]` |
 
-## 4. 日历特征（始终生成；只用目标周日历信息）
+## 4. Calendar Features (always generated; use only the target week's calendar info)
 
-| 特征名 | 含义 | 公式 | 所用日期范围 |
+| Feature | Meaning | Formula | Date range used |
 | --- | --- | --- | --- |
-| `cal_target_weekday` | 预测周起始星期 | target_start.weekday()（0=周一 … 6=周日） | 目标周 `[t+1, t+H]`（仅日历，无事件数据） |
-| `cal_target_month` | 预测周起始月份 | target_start.month（1–12） | 目标周（仅日历） |
-| `cal_target_cross_month` | 预测周是否跨月 | 1 if target_start.month ≠ target_end.month else 0 | 目标周（仅日历） |
-| `cal_target_holiday` | 预测周是否含公开节假日 | 1 if 目标周任一天 ∈ holidays else 0 | 目标周（仅公开日历，无促销记录） |
+| `cal_target_weekday` | Weekday of the target week's start | target_start.weekday() (0=Mon … 6=Sun) | target week `[t+1, t+H]` (calendar only, no event data) |
+| `cal_target_month` | Month of the target week's start | target_start.month (1–12) | target week (calendar only) |
+| `cal_target_cross_month` | Whether the target week crosses a month boundary | 1 if target_start.month ≠ target_end.month else 0 | target week (calendar only) |
+| `cal_target_holiday` | Whether the target week contains a public holiday | 1 if any day of the target week ∈ holidays else 0 | target week (public calendar only, no promo records) |
 
-## 5. 类别身份特征（`use_category=True` 时生成）
+## 5. Category-Identity Features (generated when `use_category=True`)
 
-| 特征名 | 含义 | 公式 | 所用日期范围 |
+| Feature | Meaning | Formula | Date range used |
 | --- | --- | --- | --- |
-| `cat_is_<id>` | 类别 One-Hot 编码 | 1 if category_id == id else 0 | 无（类别身份，不涉时间） |
+| `cat_is_<id>` | Category One-Hot encoding | 1 if category_id == id else 0 | none (category identity, no time involved) |
 
-- 每个 `config['category_ids']`（即 M3 开发期选定的 `variants['10'].selected_ids`）对应一列，按 id 整数升序排列。
-- 编码映射只在开发期类别列表上拟合，**不使用测试期数据**。
+- One column per `config['category_ids']` entry (i.e. M3's development-period `variants['10'].selected_ids`), ordered by integer id ascending.
+- The encoding mapping is fit only on the development-period category list, **never on test-period data**.
 
-## 6. 消融开关（供 M6 做 E2 / E3）
+## 6. Ablation Switches (for M6's E2 / E3)
 
-| 开关 | 作用 | `False` 时保留 | `True` 时新增 |
+| Switch | Effect | Kept when `False` | Added when `True` |
 | --- | --- | --- | --- |
-| `use_behavior`（E2） | 浏览与加购 | 仅第 1、4 节（购买 + 日历） | 第 2、3 节（浏览 / 加购 / 比例） |
-| `use_category`（E3） | 类别身份 | 无类别列 | 第 5 节（`cat_is_<id>` One-Hot） |
+| `use_behavior` (E2) | views & cart | only sections 1, 4 (purchase + calendar) | sections 2, 3 (views / cart / ratios) |
+| `use_category` (E3) | category identity | no category columns | section 5 (`cat_is_<id>` One-Hot) |
 
-- M4 只提供开关与特征输出；消融实验的运行与结论分析归 M6。
+- M4 only provides the switches and feature output; running and analyzing the ablation experiments belongs to M6.
 
-## 7. 输出列顺序
+## 7. Output Column Order
 
-`WINDOW_META_FIELDS`（sample_id, category_id, input_start_date, input_end_date, target_start_date, target_end_date）→ 特征列（按第 1 → 2 → 3 → 4 → 5 节顺序）→ `y`。
+`WINDOW_META_FIELDS` (sample_id, category_id, input_start_date, input_end_date, target_start_date, target_end_date) → feature columns (in the order of sections 1 → 2 → 3 → 4 → 5) → `y`.

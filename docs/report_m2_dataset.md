@@ -1,10 +1,11 @@
-# Data: Sources, Scale, Aggregation Pipeline, and Limitations（M2 报告章节草稿）
+# Data: Sources, Scale, Aggregation Pipeline, and Limitations (M2 report section draft)
 
-> 交接说明：这是报告 **Data & Preprocessing** 章里由 M2 负责部分的英文草稿
-> （读取与聚合；质量审核、类别选择、切分由 M3 撰写）。所有数字均为本机
-> `scripts/run_m2_pipeline.sh` 正式运行实测，逐项核对见
-> `reports/tables/aggregation_check.csv` 与 `reports/aggregation_check_report.md`。
-> 按课程规则，团队须在此基础上独立改写后才能用于提交。
+> Handoff note: this is the English draft of the **Data & Preprocessing** chapter
+> section owned by M2 (reading & aggregation; quality audit, category selection,
+> and splitting are written by M3). All numbers were measured on this machine by
+> running `scripts/run_m2_pipeline.sh`; item-by-item checks are in
+> `reports/tables/aggregation_check.csv` and `reports/aggregation_check_report.md`.
+> Per course rules, the team must independently rewrite this before submission.
 
 ## Data Sources
 

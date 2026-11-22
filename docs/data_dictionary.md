@@ -1,73 +1,73 @@
-# DemandLens 数据字典（M2 负责）
+# DemandLens Data Dictionary (owned by M2)
 
-适用对象：原始事件日志 → 日汇总表 `daily_all_categories.csv`（契约 3.6）。
-主数据集：Multi-category Store（大型多类别电商，Rees46 发布）；外部验证候选：Cosmetics Shop。
-两组数据的字段结构一致，处理口径一致。
+Applies to: raw event log → daily aggregated table `daily_all_categories.csv` (contract 3.6).
+Primary dataset: Multi-category Store (large multi-category e-commerce, released by Rees46); external-validation candidate: Cosmetics Shop.
+Both datasets share the same field structure and processing rules.
 
-## 1. 原始事件 CSV（每月一个文件，不入库）
+## 1. Raw Event CSV (one file per month, not stored in the repo)
 
-| 列 | 类型 | 含义 | M2 处理 |
+| Column | Type | Meaning | M2 handling |
 |---|---|---|---|
-| event_time | 文本，`YYYY-MM-DD HH:MM:SS UTC` | 事件时间（UTC） | 取前 10 位为日期；非法值计数后排除 |
-| event_type | 文本 | view / cart / purchase（部分月份另有 remove_from_cart） | 小写归一化；仅契约三类进入聚合，其余单独计数 |
-| product_id | 整数 | 商品 ID | 不读取（初版不用，见作业 3.1） |
-| category_id | 整数 | 商品类别 ID，聚合主键之一 | 必须可解析为整数，否则计数并排除 |
-| category_code | 文本，可空 | 类别路径（如 `computers.notebook`），存在缺失 | 记录每个类别出现过的编码集合，冲突时标记 |
-| brand | 文本，可空 | 品牌，存在缺失 | 不读取 |
-| price | 浮点 | 事件记录中的价格（币种未确认，存在 0 价格） | 不读取 |
-| user_id | 整数 | 用户 ID；事件数 ≠ 独立用户数 | 不读取 |
-| user_session | 文本 | 会话 ID；与订单不是同一概念 | 不读取 |
+| event_time | text, `YYYY-MM-DD HH:MM:SS UTC` | Event time (UTC) | Take the first 10 characters as the date; count then exclude invalid values |
+| event_type | text | view / cart / purchase (some months also have remove_from_cart) | Lowercase-normalize; only the three contract types enter aggregation, the rest are counted separately |
+| product_id | integer | Product ID | Not read (not used in v1, see assignment 3.1) |
+| category_id | integer | Category ID, one of the aggregation keys | Must parse to an integer, otherwise count and exclude |
+| category_code | text, nullable | Category path (e.g. `computers.notebook`), sometimes missing | Record the set of codes seen per category; flag on conflicts |
+| brand | text, nullable | Brand, sometimes missing | Not read |
+| price | float | Price in the event record (currency unconfirmed, includes zero prices) | Not read |
+| user_id | integer | User ID; event count ≠ unique users | Not read |
+| user_session | text | Session ID; not the same concept as orders | Not read |
 
-读取方式（需求 D1）：`pandas.read_csv(..., usecols=[...4 列...], chunksize=1_000_000)`
-分块流式处理，单个月文件（最大 ~9 GiB）可在普通笔记本上完成。
+Reading method (requirement D1): `pandas.read_csv(..., usecols=[...4 columns...], chunksize=1_000_000)`
+Chunked streaming processing; a single monthly file (largest ~9 GiB) completes on an ordinary laptop.
 
-## 2. 日汇总表 `daily_all_categories.csv`（契约 3.6）
+## 2. Daily Aggregated Table `daily_all_categories.csv` (contract 3.6)
 
-一个 (date, category_id) 组合一行；**不补零、不筛选类别**（M2 产物）。
-M3 审核质量、选择类别并补齐日历后产出 `daily_category.csv`，下游只用后者。
+One row per (date, category_id) combination; **no zero-filling, no category filtering** (M2's product).
+M3 audits quality, selects categories, and completes the calendar to produce `daily_category.csv`; downstream uses only the latter.
 
-| 列 | 类型 | 说明 |
+| Column | Type | Description |
 |---|---|---|
-| date | 日期（UTC） | 事件所在 UTC 日，ISO 格式 `YYYY-MM-DD` |
-| category_id | 整数 (int64) | 商品类别 ID |
-| category_code | 文本，可空 | 该类别出现过的类别路径；跨块/跨月不一致时以 `\|` 连接全部取值并在核对表标记 |
-| views | 整数 ≥ 0 | 当日该类别 view 事件数 |
-| cart | 整数 ≥ 0 | 当日该类别 cart 事件数（不含 remove_from_cart） |
-| purchase | 整数 ≥ 0 | 当日该类别 purchase 事件数；**这是唯一的预测标签来源** |
+| date | date (UTC) | The UTC day the event falls on, ISO format `YYYY-MM-DD` |
+| category_id | integer (int64) | Category ID |
+| category_code | text, nullable | The category path seen for this category; on cross-chunk/cross-month inconsistency, join all values with `\|` and flag in the check table |
+| views | integer ≥ 0 | Number of view events for this category on that day |
+| cart | integer ≥ 0 | Number of cart events for this category on that day (excludes remove_from_cart) |
+| purchase | integer ≥ 0 | Number of purchase events for this category on that day; **this is the only source of the prediction label** |
 
-语义边界（务必随数据传递）：
-- 事件数 ≠ 订单数 ≠ 销售件数；purchase 事件是「未来 7 天购买活动」的代理标签。
-- 缺失行 ≠ 零购买：没有记录的 (类别, 日期) 可能是采集缺口，由 M3 审核后决定补零或剔除。
-- remove_from_cart 不属于契约事件，不影响 cart 列。
+Semantic boundaries (must travel with the data):
+- Event count ≠ order count ≠ units sold; the purchase event is the proxy label for "purchase activity over the next 7 days".
+- Missing rows ≠ zero purchases: a (category, date) pair with no record may be a collection gap; M3 decides after auditing whether to zero-fill or exclude.
+- remove_from_cart is not a contract event and does not affect the cart column.
 
-## 3. 聚合核对表 `reports/tables/aggregation_check.csv`
+## 3. Aggregation Check Table `reports/tables/aggregation_check.csv`
 
-列：`dataset, month, check, raw_value, aggregated_value, diff, status`。
-关键检查项（status=OK/FAIL，其余为 INFO）：
+Columns: `dataset, month, check, raw_value, aggregated_value, diff, status`.
+Key checks (status=OK/FAIL, others are INFO):
 
-| check | 含义 |
+| check | Meaning |
 |---|---|
-| count:view / count:cart / count:purchase | 进入聚合的有效契约事件数 == 日汇总列之和（D2 验收） |
-| count_raw_all:{event} | 原始文件中该事件类型全部行数（含无效行，信息项） |
-| aggregatable_rows | 进入聚合的行数 == 日汇总三列之和 |
-| excluded:other_event_types | 契约外事件（如 remove_from_cart）行数 |
-| invalid:date_rows / invalid:category_rows | 日期非法 / 类别 ID 非法的行数 |
-| duplicate:same_contract_cols_est | 在契约四列（event_time/event_type/category_id/category_code）上完全相同的行数估计。**注意**：读取不含 user_id，热门商品同秒的多次正常浏览也会计入，不能当作真重复行；跨块重复未覆盖 |
-| coverage:categories / coverage:dates | 该月覆盖的类别数 / 日期数 |
-| consistency:category_code_conflicts | 同一 category_id 出现多个 category_code 的类别数 |
-| cross_month:category_code_conflicts | 跨月编码不一致的类别数（合并表层面） |
-| file:size_bytes | 原始文件字节数 |
+| count:view / count:cart / count:purchase | Valid in-contract event count that entered aggregation == sum of the daily-aggregated column (D2 acceptance) |
+| count_raw_all:{event} | Total rows of that event type in the raw file (including invalid rows; informational) |
+| aggregatable_rows | Rows that entered aggregation == sum of the three daily-aggregated columns |
+| excluded:other_event_types | Rows of out-of-contract events (e.g. remove_from_cart) |
+| invalid:date_rows / invalid:category_rows | Rows with invalid date / invalid category ID |
+| duplicate:same_contract_cols_est | Estimated number of rows identical on the four contract columns (event_time/event_type/category_id/category_code). **Note**: user_id is not read, so multiple normal views of a popular product within the same second also count; do not treat as true duplicates; cross-chunk duplicates are not covered |
+| coverage:categories / coverage:dates | Number of categories / dates covered in the month |
+| consistency:category_code_conflicts | Number of categories where one category_id maps to multiple category_code values |
+| cross_month:category_code_conflicts | Number of categories with inconsistent codes across months (at the merged-table level) |
+| file:size_bytes | Raw file size in bytes |
 
-## 4. 化妆品店日汇总 `daily_all_categories_cosmetics.csv`
+## 4. Cosmetics Shop Daily Table `daily_all_categories_cosmetics.csv`
 
-列与语义与第 2 节完全一致；用于（候选）外部验证，不参与开发期调参。
-注意其 category_code 缺失比例非常高（十月约 96.8% 事件无编码，473/489 个类别完全无编码，
-以核对表实测数字为准），类别可读名基本不可用，以匿名 ID 为主。
+Columns and semantics are identical to section 2; used for (candidate) external validation and does not participate in development-period tuning.
+Note its category_code missing rate is very high (about 96.8% of October events have no code; 473/489 categories have no code at all —
+use the figures measured in the check table), so readable category names are basically unusable; anonymous IDs are primary.
 
-## 5. 初步时间切分 `reports/tables/preliminary_split.csv`
+## 5. Preliminary Time Split `reports/tables/preliminary_split.csv`
 
-列：`date, split, eval_block_start`。
-- split ∈ {train, val, test}：同一 UTC 日所有类别同一分区（作业 4.6）。
-- eval_block_start：互不重叠的 7 天评价区间的起始日（仅 val/test 日期有值），
-  用于避免连续滑动窗口评价高度相关；不满 7 天的尾部区间不参与评价。
-- 本文件是 M2 代拟草案，最终边界由 M3 审核后写入 `config/config.yaml` 并冻结。
+Columns: `date, split, eval_block_start`.
+- split ∈ {train, val, test}: all categories on the same UTC day are in the same partition (assignment 4.6).
+- eval_block_start: the start day of a non-overlapping 7-day evaluation block (only val/test dates have a value),
+  used to avoid highly correlated evaluation from consecutive sliding windows; a trailing interval shorter than 7 days does not participate in evaluation.
+- This file is M2's draft; the final boundaries are written to `config/config.yaml` and frozen after M3's audit.

@@ -1,21 +1,21 @@
-# 聚合核对报告（M2 交付物）
+# Aggregation Check Report (M2 deliverable)
 
-生成时间：2026-11-17T19:51:42
+Generated at: 2026-11-17T19:51:42
 
-数据契约见作业 3.6；逐项核对数字见 `reports/tables/aggregation_check.csv`。本报告只解读数字；质量审核、类别选择与日历补齐由 M3 负责。
+The data contract is in assignment 3.6; item-by-item figures are in `reports/tables/aggregation_check.csv`. This report only interprets the numbers; quality audit, category selection, and calendar completion are M3's responsibility.
 
-## 结论
+## Conclusions
 
-- 一致性检查 **28 项 OK / 0 项 FAIL**；聚合前后各事件类型总数全部一致（需求 D2 验收通过）。
+- Consistency checks **28 OK / 0 FAIL**; every event-type total is identical before and after aggregation (requirement D2 acceptance passed).
 
-## 数据集总览
+## Dataset Overview
 
-- **multi_store**：2 个月（2019-Oct .. 2019-Nov），原始事件 109,950,743（其中进入聚合 109,950,743；契约外事件 0），原始文件合计 13.67 GiB
-- **cosmetics**：5 个月（2019-Oct .. 2020-Feb），原始事件 20,692,840（其中进入聚合 16,713,161；契约外事件 3,979,679），原始文件合计 2.27 GiB
+- **multi_store**: 2 months (2019-Oct .. 2019-Nov), 109,950,743 raw events (109,950,743 entered aggregation; 0 out-of-contract), raw files 13.67 GiB total
+- **cosmetics**: 5 months (2019-Oct .. 2020-Feb), 20,692,840 raw events (16,713,161 entered aggregation; 3,979,679 out-of-contract), raw files 2.27 GiB total
 
-## 各月明细
+## Per-Month Details
 
-| 数据集 | 月份 | view | cart | purchase | 类别数 | 日期数 | 零购买行比例 |
+| Dataset | Month | view | cart | purchase | Categories | Days | Zero-purchase row share |
 |---|---|---:|---:|---:|---:|---:|---:|
 | multi_store | 2019-Oct | 40,779,399 | 926,516 | 742,849 | 624 | 31 | 31.7% |
 | multi_store | 2019-Nov | 63,556,110 | 3,028,930 | 916,939 | 684 | 30 | 34.9% |
@@ -25,14 +25,14 @@
 | cosmetics | 2020-Jan | 2,037,608 | 1,148,323 | 263,797 | 481 | 31 | 24.0% |
 | cosmetics | 2020-Feb | 1,953,586 | 1,148,694 | 241,993 | 487 | 29 | 23.6% |
 
-## 质量参考数字（供 M3 审核，不替代质量报告）
+## Quality Reference Figures (for M3's audit; does not replace the quality report)
 
-- **multi_store**：非法日期行 0；非法类别行 0；契约外事件 0；契约四列相同行估计 33,333,787；类别编码冲突（月内 0 / 跨月 0）
-- **cosmetics**：非法日期行 0；非法类别行 0；契约外事件 3,979,679；契约四列相同行估计 1,982,004；类别编码冲突（月内 0 / 跨月 0）
+- **multi_store**: invalid-date rows 0; invalid-category rows 0; out-of-contract events 0; estimated rows identical on the four contract columns 33,333,787; category-code conflicts (within-month 0 / cross-month 0)
+- **cosmetics**: invalid-date rows 0; invalid-category rows 0; out-of-contract events 3,979,679; estimated rows identical on the four contract columns 1,982,004; category-code conflicts (within-month 0 / cross-month 0)
 
-## 局限（与作业 3.7 一致）
+## Limitations (consistent with assignment 3.7)
 
-- 「契约四列相同行」是疑似重复信号（不含 user_id，同秒同商品的正常事件也计入），不是真重复；跨块重复未覆盖，全量去重成本高，作为局限写明。
-- 零购买行比例是「有记录行」中的比例；无记录的 (类别, 日期) 不在表内，不能当作零购买，需 M3 判断采集缺口。
-- 化妆品店 category_code 缺失比例高，类别可读名仅作辅助。
-- 事件数 ≠ 订单数 ≠ 销售件数；purchase 事件是需求的代理指标。
+- "Rows identical on the four contract columns" is a suspected-duplicate signal (user_id is not read, so normal events on the same product within the same second are also counted), not true duplicates; cross-chunk duplicates are not covered, and full deduplication is costly — recorded as a limitation.
+- The zero-purchase row share is computed over "rows that have a record"; (category, date) pairs with no record are not in the table and must not be treated as zero purchases — M3 must judge whether they are collection gaps.
+- The cosmetics shop has a very high category_code missing rate; readable category names serve only as auxiliary labels.
+- Event count ≠ order count ≠ units sold; the purchase event is a proxy for demand.
